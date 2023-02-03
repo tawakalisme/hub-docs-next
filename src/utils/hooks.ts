@@ -7,15 +7,14 @@ export function useHeadsObserver(): { activeId: string } {
   useEffect(() => {
     const handleObsever = (entries: any[]) => {
       entries.forEach((entry) => {
-        console.log(entry);
         if (entry?.isIntersecting) {
-          setActiveId(entry.target.innerText);
+          setActiveId(entry.target.id);
         }
       });
     };
 
     observer.current = new IntersectionObserver(handleObsever, {
-      rootMargin: "-20% 0% -35% 0px",
+      rootMargin: "-10px 0px -80% 0px",
     });
 
     const elements = document.querySelectorAll("h2, h3, h4");

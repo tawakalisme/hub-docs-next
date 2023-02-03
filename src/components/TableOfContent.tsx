@@ -22,7 +22,7 @@ export default function TableOfContent(props: any) {
   const getClassName = (level: number) => {
     switch (level) {
       case 2:
-        return "text-bold";
+        return "font-bold";
       case 3:
         return "text-sm ml-4";
       case 4:
@@ -32,13 +32,11 @@ export default function TableOfContent(props: any) {
     }
   };
 
-  console.log("active: " + activeId);
-
   return (
-    <div className="sticky top-8">
-      <p className="text-sm font-bold">Table of Contents</p>
-      <>
-        <ul>
+    <div className="relative">
+      <div className="sticky top-[104px]">
+        <p className="text-sm font-bold">Table of Contents</p>
+        <ul className="overflow-y-auto">
           {headings.map((heading) => (
             <li key={heading.id} className={`${getClassName(heading.level)}`}>
               <a
@@ -52,15 +50,15 @@ export default function TableOfContent(props: any) {
                     });
                 }}
                 className={`${
-                  activeId === heading.text ? "font-bold" : "font-normal"
-                } duration-300 ease-out`}
+                  activeId === heading.id ? "font-bold" : "font-normal"
+                } duration-100 ease-out`}
               >
                 {heading.text}
               </a>
             </li>
           ))}
         </ul>
-      </>
+      </div>
     </div>
   );
 }
