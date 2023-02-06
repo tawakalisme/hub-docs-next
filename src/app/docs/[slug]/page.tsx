@@ -99,6 +99,7 @@ export default async function Docs({ params: { slug } }: any) {
         <div className="lg:col-span-2">
           <h1 className="text-4xl font-bold mb-4">{data.title}</h1>
           <Date dateString={data.createdAt} />
+          <hr className="border-t border-ycp-primary/20 my-4" />
           <Content content={data.content} />
         </div>
         <TableOfContent />
