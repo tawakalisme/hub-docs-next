@@ -3,6 +3,7 @@ import Content from "@/components/Content";
 import Link from "next/link";
 import client from "@/utils/apollo-client";
 import { gql } from "@apollo/client";
+import { parseISO, format } from "date-fns";
 
 async function getDocs() {
   const { data } = await client.query({
@@ -65,6 +66,11 @@ export async function generateStaticParams() {
   }));
 }
 
+const Date = ({ dateString }: { dateString: string }) => {
+  const date = parseISO(dateString);
+  return <time dateTime={dateString}>{format(date, "d LLLL yyyy")}</time>;
+};
+
 export default async function Docs({ params: { slug } }: any) {
   const doc = await getDoc(slug);
   const data = await doc.data.attributes;
@@ -92,7 +98,7 @@ export default async function Docs({ params: { slug } }: any) {
         </div>
         <div className="lg:col-span-2">
           <h1 className="text-4xl font-bold mb-4">{data.title}</h1>
-          <p>{data.createdAt}</p>
+          <Date dateString={data.createdAt} />
           <Content content={data.content} />
         </div>
         <TableOfContent />
