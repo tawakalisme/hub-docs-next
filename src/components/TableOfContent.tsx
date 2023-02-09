@@ -50,7 +50,7 @@ export default function TableOfContent(props: any) {
                     });
                 }}
                 className={`${
-                  activeId === heading.id ? "font-bold" : "font-normal"
+                  activeId === heading.id ? "font-bold text-ycp-primary" : "font-normal"
                 } duration-100 ease-out`}
               >
                 {heading.text}

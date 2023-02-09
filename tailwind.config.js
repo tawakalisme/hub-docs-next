@@ -39,5 +39,6 @@ module.exports = {
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/line-clamp"),
+    require("prettier-plugin-tailwindcss"),
   ],
 };

@@ -4,6 +4,9 @@ import Link from "next/link";
 import client from "@/utils/apollo-client";
 import { gql } from "@apollo/client";
 import { parseISO, format } from "date-fns";
+import Loading from "./loading";
+import { Suspense } from "react";
+import Search from "@/components/Search";
 
 async function getDocs() {
   const { data } = await client.query({
@@ -79,7 +82,7 @@ export default async function Docs({ params: { slug } }: any) {
   // const allDocs = await results.data;
   return (
     <div className="container pt-[104px] pb-8">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
         <div className="relative">
           <ul className="sticky top-[104px]">
             {results.map((doc: any) => (
@@ -96,12 +99,14 @@ export default async function Docs({ params: { slug } }: any) {
             ))}
           </ul>
         </div>
-        <div className="lg:col-span-2">
-          <h1 className="text-4xl font-bold mb-4">{data.title}</h1>
-          <Date dateString={data.createdAt} />
-          <hr className="border-t border-ycp-primary/20 my-4" />
-          <Content content={data.content} />
-        </div>
+        <Suspense fallback={<Loading />}>
+          <div className="lg:col-span-2">
+            <h1 className="mb-4 text-4xl font-bold">{data.title}</h1>
+            <Date dateString={data.createdAt} />
+            <hr className="my-4 border-t border-ycp-primary/20" />
+            <Content content={data.content} />
+          </div>
+        </Suspense>
         <TableOfContent />
       </div>
     </div>

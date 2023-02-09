@@ -1,6 +1,7 @@
 import localFont from "@next/font/local";
 import Navbar from "@/components/Navbar";
 import "@/styles/globals.css";
+import "@docsearch/css";
 
 const palladio = localFont({
   src: [

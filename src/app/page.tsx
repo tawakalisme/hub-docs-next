@@ -35,11 +35,11 @@ async function getDocs() {
 const Home = async () => {
   const res = await getDocs();
   return (
-    <div className="container pt-[104px] pb-8 relative">
+    <div className="container relative pt-[104px] pb-8">
       <section id="hero">
-        <div className="py-32 max-w-xl">
-          <h1 className="font-bold text-6xl leading-tight text-ycp-primary font-serif">
-            Welcome to The Docs!
+        <div className="max-w-xl py-32">
+          <h1 className="text-6xl font-bold leading-tight text-ycp-primary">
+            Welcome to Hub Docs!
           </h1>
           <p className="">
             Hub Docs is a one stop documentation for YCP&apos;s Hub for
@@ -48,21 +48,19 @@ const Home = async () => {
         </div>
       </section>
       <section id="docs">
-        <h2 className="font-serif font-bold text-4xl leading-tight text-ycp-primary">
+        <h2 className=" text-4xl font-bold leading-tight text-ycp-primary">
           Docs
         </h2>
         <p>Essentials documentations. Great for first time users.</p>
-        <div className="grid grid-cols-4 gap-4 lg:gap-8 mt-4">
+        <div className="mt-4 grid grid-cols-4 gap-4 lg:gap-8">
           {res.map((doc: any) => (
             <Link
               href={`/docs/${doc.attributes.slug}`}
               key={doc.id}
-              className="rounded-lg drop-shadow-lg bg-white p-4 group hover:bg-ycp-orange duration-100 ease-out hover:scale-105"
+              className="group rounded-lg bg-white p-4 drop-shadow-lg duration-100 ease-out hover:shadow-inner"
             >
-              <h3 className="font-bold text-xl group-hover:text-white">
-                {doc.attributes.title}
-              </h3>
-              <p className="line-clamp-3 group-hover:text-white text-gray-500 text-sm">
+              <h3 className="text-xl font-bold">{doc.attributes.title}</h3>
+              <p className="text-sm text-gray-500 line-clamp-3">
                 {doc.attributes.excerpt}
               </p>
             </Link>
