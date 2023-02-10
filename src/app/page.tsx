@@ -3,37 +3,39 @@ import { gql } from "@apollo/client";
 import client from "@/utils/apollo-client";
 
 async function getDocs() {
-  const { data } = await client.query({
-    query: gql`
-      query Documentations {
-        documentations {
-          data {
-            id
-            attributes {
-              title
-              excerpt
-              slug
-              updatedAt
-            }
-          }
-        }
-      }
-    `,
-  });
+  // const { data } = await client.query({
+  //   query: gql`
+  //     query Documentations {
+  //       documentations {
+  //         data {
+  //           id
+  //           attributes {
+  //             title
+  //             excerpt
+  //             slug
+  //             updatedAt
+  //           }
+  //         }
+  //       }
+  //     }
+  //   `,
+  // });
 
-  return data.documentations.data;
+  // return data.documentations.data;
 
-  // const res = await fetch(`${process.env.STRAPI_URL}/documentations`);
-  // // Recommendation: handle errors
-  // if (!res.ok) {
-  //   // This will activate the closest `error.js` Error Boundary
-  //   throw new Error("Failed to fetch data");
-  // }
-  // return res.json();
+  const res = await fetch(`${process.env.STRAPI_URL}/documentations`);
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const result = res.json();
+  return result;
 }
 
 const Home = async () => {
-  const res = await getDocs();
+  const result = await getDocs();
+  const res = result.data;
   return (
     <div className="container relative pt-[104px] pb-8">
       <section id="hero">
@@ -57,7 +59,7 @@ const Home = async () => {
             <Link
               href={`/docs/${doc.attributes.slug}`}
               key={doc.id}
-              className="group rounded-lg bg-white p-4 drop-shadow-lg duration-100 ease-out hover:shadow-inner"
+              className="group rounded-lg border border-transparent bg-white p-4 drop-shadow-lg duration-100 ease-out hover:border-gray-200 hover:drop-shadow-xl"
             >
               <h3 className="text-xl font-bold">{doc.attributes.title}</h3>
               <p className="text-sm text-gray-500 line-clamp-3">

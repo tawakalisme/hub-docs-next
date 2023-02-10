@@ -9,30 +9,31 @@ import { Suspense } from "react";
 import Search from "@/components/Search";
 
 async function getDocs() {
-  const { data } = await client.query({
-    query: gql`
-      query Documentations {
-        documentations {
-          data {
-            id
-            attributes {
-              slug
-              title
-            }
-          }
-        }
-      }
-    `,
-  });
+  // const { data } = await client.query({
+  //   query: gql`
+  //     query Documentations {
+  //       documentations {
+  //         data {
+  //           id
+  //           attributes {
+  //             slug
+  //             title
+  //           }
+  //         }
+  //       }
+  //     }
+  //   `,
+  // });
 
-  return data.documentations.data;
-  // const res = await fetch(`${process.env.STRAPI_URL}/documentations`);
-  // // Recommendation: handle errors
-  // if (!res.ok) {
-  //   // This will activate the closest `error.js` Error Boundary
-  //   throw new Error("Failed to fetch data");
-  // }
-  // return res.json();
+  // return data.documentations.data;
+  const res = await fetch(`${process.env.STRAPI_URL}/documentations`);
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  const result = res.json();
+  return result;
 }
 
 async function getDoc(slug: any) {
@@ -63,7 +64,8 @@ async function getDoc(slug: any) {
 }
 
 export async function generateStaticParams() {
-  const results = await getDocs();
+  const res = await getDocs();
+  const results = res.data;
   return results.map((doc: any) => ({
     slug: doc.attributes.slug,
   }));
@@ -79,13 +81,13 @@ export default async function Docs({ params: { slug } }: any) {
   const data = await doc.data.attributes;
 
   const results = await getDocs();
-  // const allDocs = await results.data;
+  const allDocs = await results.data;
   return (
     <div className="container pt-[104px] pb-8">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
         <div className="relative">
           <ul className="sticky top-[104px]">
-            {results.map((doc: any) => (
+            {allDocs.map((doc: any) => (
               <li key={doc.id}>
                 <Link
                   href={`/docs/${doc.attributes.slug}`}
