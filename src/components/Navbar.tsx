@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Search from "./Search";
-import CustomDocSearch from "@/components/CustomDocSearch";
 
 export default function Navbar({ className }: { className?: string }) {
   return (
@@ -16,7 +15,6 @@ export default function Navbar({ className }: { className?: string }) {
             </code>
           </div>
           <Search />
-          <CustomDocSearch />
         </div>
       </nav>
     </div>
