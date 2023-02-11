@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { gql } from "@apollo/client";
 import client from "@/utils/apollo-client";
+import Search from "@/components/Search";
 
 async function getDocs() {
   // const { data } = await client.query({
